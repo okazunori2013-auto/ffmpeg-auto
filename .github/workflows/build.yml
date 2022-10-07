@@ -101,6 +101,7 @@ jobs:
         shell: cmd
         run: |
           7z.exe x ffmpeg.7z -o./media-autobuild_suite/local64
+          del ffmpeg.7z
       - name: Patch bash scripts
         shell: cmd
         run: |
