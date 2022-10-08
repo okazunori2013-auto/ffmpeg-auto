@@ -11,6 +11,7 @@ on:
   schedule:
     - cron: '0 10 * * *'
 jobs:
+  if: github.event_name == 'schedule'
   update-submodules:
     uses:  ./.github/workflows/update submodules.yml
   minimum-build:
@@ -104,7 +105,7 @@ jobs:
         shell: cmd
         run: |
           7z.exe x ffmpeg.7z -y -o./media-autobuild_suite
-          del ffmpeg.7z
+          del ffmpeg.7z /Q
       - name: Patch bash scripts
         shell: cmd
         run: |
