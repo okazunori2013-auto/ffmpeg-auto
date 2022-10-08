@@ -73,6 +73,7 @@ jobs:
         if: ${{ steps.media-autobuild.outcome == 'failure' }}
         run:  exit 1
   full-build:
+    if: ${{always()}} || ${{ cancelled() }}
     needs: minimum-build
     strategy:
       fail-fast: false
@@ -93,7 +94,9 @@ jobs:
         uses: actions/checkout@v3 
         with:
           submodules: recursive
-      - uses: actions/download-artifact@v3
+      - name: download-minimum-build-artifact
+        uses: actions/download-artifact@v3
+        continue-on-error: true
         with:
           name: media-autobuild_suite-${{ matrix.os }}-minimum-build
           path: ffmpeg.7z
