@@ -100,7 +100,7 @@ jobs:
       - name: extract 7z
         shell: cmd
         run: |
-          7z.exe x ffmpeg.7z -o./media-autobuild_suite/local64
+          7z.exe x ffmpeg.7z -o./media-autobuild_suite
           del ffmpeg.7z
       - name: Patch bash scripts
         shell: cmd
