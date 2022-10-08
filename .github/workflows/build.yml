@@ -11,8 +11,8 @@ on:
   schedule:
     - cron: '0 10 * * *'
 jobs:
-  if: github.event_name == 'schedule'
   update-submodules:
+    if: github.event_name == 'schedule'
     uses:  ./.github/workflows/update submodules.yml
   minimum-build:
     if: ${{always()}}
