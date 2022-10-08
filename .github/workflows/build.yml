@@ -111,7 +111,6 @@ jobs:
         continue-on-error: true
         with:
           name: media-autobuild_suite-${{ matrix.os }}-minimum-build
-          path: ffmpeg.7z
       - name: extract 7z
         shell: cmd
         run: |
