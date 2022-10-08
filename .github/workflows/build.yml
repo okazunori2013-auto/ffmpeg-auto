@@ -62,7 +62,7 @@ jobs:
       - name: 7z
         shell: cmd
         run: |
-          if exist ./media-autobuild_suite/build/logs.zip (7z.exe a ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe a ffmpeg.7z ./media-autobuild_suite/local64)
+          if exist ./media-autobuild_suite/build/logs.zip (7z.exe a -y ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe a -y ffmpeg.7z ./media-autobuild_suite/local64)
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -103,7 +103,7 @@ jobs:
       - name: extract 7z
         shell: cmd
         run: |
-          7z.exe x ffmpeg.7z -o./media-autobuild_suite
+          7z.exe x ffmpeg.7z -y -o./media-autobuild_suite
           del ffmpeg.7z
       - name: Patch bash scripts
         shell: cmd
@@ -132,7 +132,7 @@ jobs:
       - name: 7z
         shell: cmd
         run: |
-          if exist ./media-autobuild_suite/build/logs.zip (7z.exe a ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe a ffmpeg.7z ./media-autobuild_suite/local64)
+          if exist ./media-autobuild_suite/build/logs.zip (7z.exe a -y ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe a -y ffmpeg.7z ./media-autobuild_suite/local64)
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
