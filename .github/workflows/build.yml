@@ -81,7 +81,6 @@ jobs:
         with:
           name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
           path: ffmpeg.7z
-          retention-days: 4
       - name: error handling    
         if: ${{ steps.media-autobuild.outcome == 'failure' }}
         run:  exit 1
@@ -151,7 +150,6 @@ jobs:
         with:
           name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
           path: ffmpeg.7z
-          retention-days: 4
       - name: error handling    
         if: ${{ steps.media-autobuild.outcome == 'failure' }}
         run:  exit 1
