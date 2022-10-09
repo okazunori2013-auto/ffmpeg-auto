@@ -68,6 +68,7 @@ jobs:
           name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
           if_no_artifact_found: warn
       - name: extract 7z
+        if: ${{ inputs.old-build-artifacts }}
         shell: cmd
         run: |
           7z.exe x ffmpeg.7z -y -o./media-autobuild_suite
