@@ -54,17 +54,6 @@ jobs:
           restore-keys: |
              msys-1-${{ hashFiles('./media-autobuild_suite/build/media-suite_compile.sh') }}
              msys-1-
-      - name: Download artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          workflow: build.yml
-          name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
-          if_no_artifact_found: warn
-      - name: extract 7z
-        shell: cmd
-        run: |
-          7z.exe x ffmpeg.7z -y -o./media-autobuild_suite
-          del ffmpeg.7z /Q 
       - name: run media-autobuild
         continue-on-error: true
         id: media-autobuild
@@ -114,7 +103,6 @@ jobs:
         shell: cmd
         run: |
           7z.exe x ffmpeg.7z -y -o./media-autobuild_suite
-          del ffmpeg.7z /Q
       - name: Patch bash scripts
         shell: cmd
         run: |
@@ -142,7 +130,7 @@ jobs:
       - name: 7z
         shell: cmd
         run: |
-          if exist ./media-autobuild_suite/build/logs.zip (7z.exe a -y ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe a -y ffmpeg.7z ./media-autobuild_suite/local64)
+          if exist ./media-autobuild_suite/build/logs.zip (7z.exe u -y ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe u -y ffmpeg.7z ./media-autobuild_suite/local64)
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
