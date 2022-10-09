@@ -67,7 +67,7 @@ jobs:
           workflow: build.yml
           name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
           if_no_artifact_found: warn
-        shell: cmd
+      - shell: cmd
         run: |
           7z.exe x ffmpeg.7z -y -o./media-autobuild_suite
           del ffmpeg.7z /Q 
