@@ -131,8 +131,9 @@ jobs:
           sed -i "/^color$/d" media-autobuild_suite/media-autobuild_suite.bat
           sed -i  's!s:LIBPATH_lib(ass^|av(^|device^|filter))!s:LIBPATH_(lib)?(ffmpeg^|ass^|av^|archive^|bluray^|jpegxl(^|device^|filter))!g' media-autobuild_suite/build/media-suite_compile.sh
           sed -i -r '/g (video^|audio) tools^|_check=\(xvc.pc^|sleep 5^|_check=\(libplacebo.^|# static do_vcs/i find $LOCALBUILDDIR -maxdepth 3 -type d -name "*-git" -exec rm -rf {} +' media-autobuild_suite/build/media-suite_compile.sh
+          sed -i 's!do_patch "\$_mabs/vulkan-loader!do_patch "build!g' build/media-suite_compile.sh
           move /Y settings\${{ matrix.build }}\* media-autobuild_suite\build
-          for /d  %%d in (settings\common\*) do move /Y %%d\* media-autobuild_suite\build
+          for /d /r  %%d in (settings\common\*) do move /Y %%d\* media-autobuild_suite\build
       - name: Cache
         uses: actions/cache@main
         with: 

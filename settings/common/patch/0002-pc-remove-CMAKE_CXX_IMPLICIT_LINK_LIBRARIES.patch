@@ -1,0 +1,25 @@
+From 6618a9ae5d06c9b210ea39b691af9e9ddc51f988 Mon Sep 17 00:00:00 2001
+From: okazunotri2013 <92250924+okazunori2013@users.noreply.github.com>
+Date: Sun, 13 Nov 2022 07:49:48 +0900
+Subject: [PATCH 2/2] pc-remove-CMAKE_CXX_IMPLICIT_LINK_LIBRARIES
+
+---
+ loader/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/loader/CMakeLists.txt b/loader/CMakeLists.txt
+index a4c605114..ab148aada 100644
+--- a/loader/CMakeLists.txt
++++ b/loader/CMakeLists.txt
+@@ -397,7 +397,7 @@ if(PKG_CONFIG_FOUND)
+             list(APPEND PRIVATE_LIBS "-l${LIB}")
+         endforeach()
+         list(REMOVE_DUPLICATES PRIVATE_LIBS)
+-        set(PRIVATE_LIBS "Libs.private: ${PRIVATE_LIBS}")
++        set(PRIVATE_LIBS "${PRIVATE_LIBS} -l${LIB}")
+     endif()
+     if(WIN32)
+         if(MINGW)
+-- 
+2.38.1.windows.1
+
