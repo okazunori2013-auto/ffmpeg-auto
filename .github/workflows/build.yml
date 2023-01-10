@@ -45,7 +45,7 @@ jobs:
       - name: Patch bash scripts
         shell: cmd
         run: |
-          .\patch\patch_bash_scripts.bat
+          call .\patch\patch_bash_scripts.bat
           move /Y settings\${{ matrix.build }}\* media-autobuild_suite\build
           for /d  %%d in (settings\common\*) do move /Y %%d\* media-autobuild_suite\build
       - name: Cache
@@ -73,7 +73,7 @@ jobs:
         id: media-autobuild
         shell: cmd
         run: |
-          ./media-autobuild_suite/media-autobuild_suite.bat
+          call .\media-autobuild_suite\media-autobuild_suite.bat
       - name: 7z
         if: ${{always()}}
         shell: cmd
@@ -122,7 +122,7 @@ jobs:
       - name: Patch bash scripts
         shell: cmd
         run: |
-          .\patch\patch_bash_scripts.bat
+          call .\patch\patch_bash_scripts.bat
           move /Y settings\${{ matrix.build }}\* media-autobuild_suite\build
           for /d  %%d in (settings\common\*) do move /Y %%d\* media-autobuild_suite\build
       - name: Cache
@@ -137,7 +137,7 @@ jobs:
         id: media-autobuild
         shell: cmd
         run: |
-          ./media-autobuild_suite/media-autobuild_suite.bat
+          call .\media-autobuild_suite\media-autobuild_suite.bat
       - name: 7z
         if: ${{always()}}
         shell: cmd
