@@ -1,0 +1,33 @@
+From 15dfb2ecfe7acfe94b1d87e7ca0e10cc4b848324 Mon Sep 17 00:00:00 2001
+From: okazunotri2013 <92250924+okazunori2013@users.noreply.github.com>
+Date: Tue, 10 Jan 2023 19:50:52 +0900
+Subject: [PATCH] WAF_NO_PREFORK=1
+
+---
+ build/media-suite_compile.sh | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/build/media-suite_compile.sh b/build/media-suite_compile.sh
+index e589ea94..5db025eb 100644
+--- a/build/media-suite_compile.sh
++++ b/build/media-suite_compile.sh
+@@ -2433,6 +2433,7 @@ if [[ $mpv != n ]] && pc_exists libavcodec libavformat libswscale libavfilter; t
+         fi
+ 
+         extra_script pre configure
++        export WAF_NO_PREFORK=1
+         CFLAGS+=" ${mpv_cflags[*]} -Wno-int-conversion" LDFLAGS+=" ${mpv_ldflags[*]}" \
+             RST2MAN="${MINGW_PREFIX}/bin/rst2man" \
+             RST2HTML="${MINGW_PREFIX}/bin/rst2html" \
+@@ -2464,7 +2465,7 @@ if [[ $mpv != n ]] && pc_exists libavcodec libavformat libswscale libavfilter; t
+             done
+         fi
+ 
+-        unset mpv_ldflags replace PKGCONF_STATIC
++        unset mpv_ldflags replace PKGCONF_STATIC WAF_NO_PREFORK
+         hide_conflicting_libs -R
+         files_exist share/man/man1/mpv.1 && dos2unix -q "$LOCALDESTDIR"/share/man/man1/mpv.1
+         ! mpv_disabled debug-build &&
+-- 
+2.39.0.windows.1
+
