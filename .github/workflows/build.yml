@@ -20,7 +20,7 @@ jobs:
   update-submodules:
     if: github.event_name == 'schedule'
     uses:  ./.github/workflows/update submodules.yml
-  minimum-build:
+  build:
     if: ${{always()}}
     needs: update-submodules
     strategy:
