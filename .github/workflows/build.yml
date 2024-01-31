@@ -75,6 +75,7 @@ jobs:
         run: |
           call .\media-autobuild_suite\media-autobuild_suite.bat
       - name: 7z
+        continue-on-error: true
         if: ${{always()}}
         shell: cmd
         run: |
