@@ -20,14 +20,14 @@ jobs:
   update-submodules:
     if: github.event_name == 'schedule'
     uses:  ./.github/workflows/update submodules.yml
-  minimum-build:
+  build:
     if: ${{always()}}
     needs: update-submodules
     strategy:
       fail-fast: false
       matrix:
         os: [windows-latest, windows-2019]
-        build: [minimum-build]
+        build: [minimum-build,full-build]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Preparation
@@ -75,71 +75,7 @@ jobs:
         run: |
           call .\media-autobuild_suite\media-autobuild_suite.bat
       - name: 7z
-        if: ${{always()}}
-        shell: cmd
-        run: |
-          if exist ./media-autobuild_suite/build/logs.zip (7z.exe a -y -sdel ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe a -y -sdel ffmpeg.7z ./media-autobuild_suite/local64)
-      - name: Upload artifacts
-        if: ${{always()}}
-        uses: actions/upload-artifact@v3
-        with:
-          name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
-          path: |
-            ffmpeg.7z
-            media-autobuild_suite/build/*_options.txt
-            media-autobuild_suite/build/media-autobuild_suite.ini
-  full-build:
-    needs: minimum-build
-    if: ${{always()}}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-latest, windows-2019]
-        build: [full-build]    
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Preparation
-        shell: cmd
-        run: |
-          fsutil 8dot3name set 0
-          echo "Adding GNU tar to PATH"
-          echo C:\Program Files\Git\usr\bin>>"%GITHUB_PATH%"
-      - name: cuda-toolkit
-        uses: okazunori2013/cuda-toolkit@master
-      - name: Checkout
-        uses: actions/checkout@v3 
-        with:
-          submodules: recursive
-      - name: download-minimum-build-artifact
-        uses: actions/download-artifact@v3
         continue-on-error: true
-        with:
-          name: media-autobuild_suite-${{ matrix.os }}-minimum-build
-      - name: extract 7z
-        shell: cmd
-        run: |
-          7z.exe x ffmpeg.7z -y -o./media-autobuild_suite
-          del ffmpeg.7z /Q 
-      - name: Patch bash scripts
-        shell: cmd
-        run: |
-          call .\patch\patch_bash_scripts.bat
-          move /Y settings\${{ matrix.build }}\* media-autobuild_suite\build
-          for /d  %%d in (settings\common\*) do move /Y %%d\* media-autobuild_suite\build
-      - name: Cache
-        uses: actions/cache@main
-        with: 
-          path: media-autobuild_suite/msys64
-          key: msys-2-${{ hashFiles('./media-autobuild_suite/build/media-suite_compile.sh') }}
-          restore-keys: |
-             msys-2-${{ hashFiles('./media-autobuild_suite/build/media-suite_compile.sh') }}
-             msys-
-      - name: run media-autobuild
-        id: media-autobuild
-        shell: cmd
-        run: |
-          call .\media-autobuild_suite\media-autobuild_suite.bat
-      - name: 7z
         if: ${{always()}}
         shell: cmd
         run: |
