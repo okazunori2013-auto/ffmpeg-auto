@@ -82,7 +82,7 @@ jobs:
           if exist ./media-autobuild_suite/build/logs.zip (7z.exe a -y -sdel ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe a -y -sdel ffmpeg.7z ./media-autobuild_suite/local64)
       - name: Upload artifacts
         if: ${{always()}}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
           path: |
