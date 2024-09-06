@@ -7,6 +7,7 @@
 --enable-bzlib
 --enable-cuda
 --enable-cuvid
+--enable-d3d12va
 --enable-d3d11va
 --enable-dxva2
 --enable-iconv
@@ -41,7 +42,7 @@
 --enable-libass
 --enable-libbluray
 --enable-libfreetype
---enable-libmfx
+--enable-libvpl
 --enable-libmysofa
 --enable-libopencore-amrnb
 --enable-libopencore-amrwb
@@ -61,7 +62,7 @@
 --enable-openssl
 --enable-libtls
 --enable-avisynth
---enable-mbedtls
+#--enable-mbedtls
 --enable-libxvid
 --enable-libopenmpt
 --enable-version3
@@ -107,6 +108,9 @@
 --enable-libuavs3d
 --enable-libplacebo
 --enable-libjxl
+--enable-libvvenc
+--enable-libvvdec
+--enable-liblc3
 
 # Full plus options that add shared dependencies
 --enable-opencl
