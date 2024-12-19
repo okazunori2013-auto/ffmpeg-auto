@@ -73,7 +73,8 @@ jobs:
         id: media-autobuild
         shell: cmd
         run: |
-          call .\media-autobuild_suite\media-autobuild_suite.bat
+          dir .\media-autobuild_suite /X
+          for %%F in (".\media-autobuild_suite\media-autobuild_suite.bat") do call %%~sF
       - name: 7z
         continue-on-error: true
         if: ${{always()}}
