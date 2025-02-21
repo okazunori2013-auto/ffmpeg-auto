@@ -38,7 +38,7 @@ jobs:
           echo "Adding GNU tar to PATH"
           echo C:\Program Files\Git\usr\bin>>"%GITHUB_PATH%"
       - name: cuda-toolkit
-        run: winget install Nvidia.CUDA
+        run: winget install --id Nvidia.CUDA -s winget
       - name: Checkout
         uses: actions/checkout@v3 
         with:
