@@ -37,8 +37,30 @@ jobs:
           fsutil 8dot3name set 0
           echo "Adding GNU tar to PATH"
           echo C:\Program Files\Git\usr\bin>>"%GITHUB_PATH%"
-      - name: cuda-toolkit
-        run: winget install --id Nvidia.CUDA -s winget -h --disable-interactivity 
+      - name: Install CUDA Toolkit and Set Paths
+        shell: cmd
+        run: |
+          echo Installing CUDA Toolkit...
+          winget install --id Nvidia.CUDA -s winget -h --disable-interactivity 
+
+          echo Finding latest CUDA version...
+          for /f "tokens=* delims=" %%v in ('dir /b /ad "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v*" 2^>nul') do set "latest=%%v"
+
+          if defined latest (
+            set "CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\%latest%"
+            echo CUDA_PATH=%CUDA_PATH%
+            echo "CUDA_PATH=%CUDA_PATH%" >> %GITHUB_ENV%
+            echo "CUDA_PATH_V%latest:~1%=%CUDA_PATH%" >> %GITHUB_ENV%
+
+            echo Adding CUDA paths to system PATH...
+            echo "%CUDA_PATH%\bin" >> %GITHUB_PATH%
+            echo "%CUDA_PATH%\libnvvp" >> %GITHUB_PATH%
+            echo "%CUDA_PATH%\include" >> %GITHUB_PATH%
+            echo "%CUDA_PATH%\lib\x64" >> %GITHUB_PATH%
+          ) else (
+            echo CUDA installation failed or not found.
+            exit /b 1
+          )
       - name: Checkout
         uses: actions/checkout@v3 
         with:
