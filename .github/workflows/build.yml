@@ -33,6 +33,7 @@ jobs:
       - name: Preparation
         shell: cmd
         run: |
+          git config --global core.symlinks true
           fsutil 8dot3name set 0
           echo "Adding GNU tar to PATH"
           echo C:\Program Files\Git\usr\bin>>"%GITHUB_PATH%"
