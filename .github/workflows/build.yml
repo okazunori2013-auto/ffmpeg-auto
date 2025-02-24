@@ -47,8 +47,8 @@ jobs:
         shell: cmd
         run: |
           call .\patch\patch_bash_scripts.bat
-          xcopy settings\${{ matrix.build }}\* media-autobuild_suite\build\ /Y /I
-          xcopy settings\common\* media-autobuild_suite\build\ /Y /I
+          xcopy settings\${{ matrix.build }}\* media-autobuild_suite\build\ /Y /I /S
+          xcopy settings\common\* media-autobuild_suite\build\ /Y /I /S
       - name: Cache
         uses: actions/cache@main
         with: 
