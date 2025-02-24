@@ -3,3 +3,13 @@
 
 # Basic built-in options, can be removed if you delete "--disable-autodetect"
 --disable-ffplay
+--disable-doc
+--disable-libcaca
+--disable-decklink
+--disable-ladspa
+--disable-alsa
+--disable-v4l2
+--disable-x11grab
+--disable-xcb
+--disable-jack
+--disable-libdrm
