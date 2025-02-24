@@ -33,6 +33,7 @@ jobs:
       - name: Preparation
         shell: cmd
         run: |
+          git config --global core.symlinks true
           fsutil 8dot3name set 0
           echo "Adding GNU tar to PATH"
           echo C:\Program Files\Git\usr\bin>>"%GITHUB_PATH%"
@@ -46,8 +47,8 @@ jobs:
         shell: cmd
         run: |
           call .\patch\patch_bash_scripts.bat
-          move /Y settings\${{ matrix.build }}\* media-autobuild_suite\build
-          for /d  %%d in (settings\common\*) do move /Y %%d\* media-autobuild_suite\build
+          xcopy settings\${{ matrix.build }}\* media-autobuild_suite\build\ /Y /I /S
+          xcopy settings\common\* media-autobuild_suite\build\ /Y /I /S
       - name: Cache
         uses: actions/cache@main
         with: 
