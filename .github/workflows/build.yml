@@ -47,8 +47,8 @@ jobs:
         shell: cmd
         run: |
           call .\patch\patch_bash_scripts.bat
-          move /Y settings\${{ matrix.build }}\* media-autobuild_suite\build
-          for /d  %%d in (settings\common\*) do move /Y %%d\* media-autobuild_suite\build
+          xcopy settings\${{ matrix.build }}\* media-autobuild_suite\build\ /Y /I
+          xcopy settings\common\* media-autobuild_suite\build\ /Y /I
       - name: Cache
         uses: actions/cache@main
         with: 
