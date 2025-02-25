@@ -8,7 +8,6 @@
 --disable-decklink
 --disable-ladspa
 --disable-alsa
---disable-v4l2
 --disable-x11grab
 --disable-xcb
 --disable-jack
