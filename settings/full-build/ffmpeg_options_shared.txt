@@ -1,0 +1,14 @@
+# Lines starting with this character are ignored
+# To override some options specifically for the shared build, create a ffmpeg_options_shared.txt file.
+
+# Basic built-in options, can be removed if you delete "--disable-autodetect"
+--disable-ffplay
+--disable-doc
+--disable-libcaca
+--disable-decklink
+--disable-ladspa
+--disable-alsa
+--disable-x11grab
+--disable-xcb
+--disable-jack
+--disable-libdrm
