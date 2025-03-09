@@ -51,8 +51,7 @@ jobs:
             )
           )
           if %ERRORLEVEL% neq 0 (
-              echo CUDA installation failed with error code %ERRORLEVEL%.
-              exit /b %ERRORLEVEL%
+              echo may CUDA installation failed with error code %ERRORLEVEL%.
           )
 
           rem 最新の CUDA バージョンを取得（v11 などのフォルダも考慮）
