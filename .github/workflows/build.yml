@@ -40,27 +40,50 @@ jobs:
       - name: Install CUDA Toolkit and Set Paths
         shell: cmd
         run: |
+          @echo off
+          setlocal enabledelayedexpansion
+
           echo Installing CUDA Toolkit...
-          winget install --id Nvidia.CUDA -s winget -h --disable-interactivity 
-
-          echo Finding latest CUDA version...
-          for /f "tokens=* delims=" %%v in ('dir /b /ad "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v*" 2^>nul') do set "latest=%%v"
-
-          if defined latest (
-            set "CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\%latest%"
-            echo CUDA_PATH=%CUDA_PATH%
-            echo "CUDA_PATH=%CUDA_PATH%" >> %GITHUB_ENV%
-            echo "CUDA_PATH_V%latest:~1%=%CUDA_PATH%" >> %GITHUB_ENV%
-
-            echo Adding CUDA paths to system PATH...
-            echo "%CUDA_PATH%\bin" >> %GITHUB_PATH%
-            echo "%CUDA_PATH%\libnvvp" >> %GITHUB_PATH%
-            echo "%CUDA_PATH%\include" >> %GITHUB_PATH%
-            echo "%CUDA_PATH%\lib\x64" >> %GITHUB_PATH%
-          ) else (
-            echo CUDA installation failed or not found.
-            exit /b 1
+          rem winget の出力を1行ずつリアルタイムにデバッグログへ出力
+          for /f "tokens=* delims=" %%l in ('winget install --id Nvidia.CUDA -s winget -h --disable-interactivity 2^>^&1') do (
+              echo ::debug::%%l
           )
+          set "winget_exit=%ERRORLEVEL%"
+          if %winget_exit% neq 0 (
+              echo CUDA installation failed with error code %winget_exit%.
+              exit /b %winget_exit%
+          )
+
+          rem 最新の CUDA バージョンを取得（降順ソートして最初の1件を採用）
+          set "CUDA_BASE=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
+          for /f "delims=" %%v in ('dir /b /ad "%CUDA_BASE%\v*" 2^>nul ^| sort /r') do (
+              set "latest=%%v"
+              goto :found
+          )
+          echo CUDA installation failed or not found.
+          exit /b 1
+
+          :found
+          rem 例: latest が "v12.3" ならば
+          set "CUDA_PATH=%CUDA_BASE%\%latest%"
+          set "CUDA_VERSION=%latest:~1%"      & rem "v12.3" -> "12.3"
+          set "CUDA_VERSION_UNDERSCORE=%CUDA_VERSION:.=_%"  & rem "12.3" -> "12_3"
+          set "CUDA_PATH_VX_Y=CUDA_PATH_V%CUDA_VERSION_UNDERSCORE%"
+
+          rem 環境変数を GITHUB_ENV へ一括書き込み
+          (
+            echo CUDA_PATH=%CUDA_PATH%
+            echo CUDA_PATH_V%CUDA_VERSION_UNDERSCORE%=%CUDA_PATH%
+            echo CUDA_PATH_VX_Y=%CUDA_PATH_VX_Y%
+          ) >> %GITHUB_ENV%
+
+          rem 必要なディレクトリを PATH に追加
+          (
+            echo %CUDA_PATH%\bin
+            echo %CUDA_PATH%\libnvvp
+            echo %CUDA_PATH%\include
+            echo %CUDA_PATH%\lib\x64
+          ) >> %GITHUB_PATH%
       - name: Checkout
         uses: actions/checkout@v3 
         with:
