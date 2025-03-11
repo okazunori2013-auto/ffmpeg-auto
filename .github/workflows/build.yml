@@ -34,7 +34,9 @@ jobs:
         shell: cmd
         run: |
           powershell Set-WinSystemLocale ja-JP
-          git config --global core.symlinks true
+          git system --global core.autocrlf
+          git system --global core.autocrlf true
+          git system --global core.symlinks true
           fsutil 8dot3name set 0
           echo "Adding GNU tar to PATH"
           echo C:\Program Files\Git\usr\bin>>"%GITHUB_PATH%"
