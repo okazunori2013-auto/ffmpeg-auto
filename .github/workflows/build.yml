@@ -45,10 +45,8 @@ jobs:
           echo Installing CUDA Toolkit...
           rem winget の出力をリアルタイムでデバッグログへ出力
           set "winget_exit=0"
-          winget install --id Nvidia.CUDA -s winget -h --disable-interactivity | (
-            for /f "tokens=*" %%l in ('more') do (
+          for /f "tokens=* delims=" %%l in ('winget install --id Nvidia.CUDA -s winget -h --disable-interactivity 2^>^&1') do (
               echo ::debug::%%l
-            )
           )
           if %ERRORLEVEL% neq 0 (
               echo may CUDA installation failed with error code %ERRORLEVEL%.
@@ -57,10 +55,12 @@ jobs:
           rem 最新の CUDA バージョンを取得（v11 などのフォルダも考慮）
           set "CUDA_BASE=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
           set "latest="
-          for /f "delims=" %%v in ('dir /b /ad "%CUDA_BASE%\v*" 2^>nul ^| sort /r') do (
+          for /f "delims=" %%v in ('dir /b /ad "%CUDA_BASE%\v*" 2^>nul') do (
               set "latest=%%v"
               goto :found
           )
+          dir /b /ad "%CUDA_BASE%\v*" ^| echo
+          echo %latest%
           echo CUDA installation failed or CUDA directory not found.
           exit /b 1
 
