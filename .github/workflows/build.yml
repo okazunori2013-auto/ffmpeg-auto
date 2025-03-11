@@ -68,8 +68,10 @@ jobs:
           :found
           rem 環境変数の設定
           set "CUDA_PATH=%CUDA_BASE%\%latest%"
-          set "CUDA_VERSION=%latest:v=%"  rem "v12.3" -> "12.3"
-          set "CUDA_VERSION_UNDERSCORE=%CUDA_VERSION:.=_%"  rem "12.3" -> "12_3"
+          rem "v12.3" -> "12.3"
+          set "CUDA_VERSION=%latest:v=%"
+          rem "12.3" -> "12_3"
+          set "CUDA_VERSION_UNDERSCORE=%CUDA_VERSION:.=_%"
           set "CUDA_PATH_VX_Y=CUDA_PATH_V%CUDA_VERSION_UNDERSCORE%"
 
           rem 環境変数を GITHUB_ENV に追加
@@ -86,7 +88,7 @@ jobs:
             echo %CUDA_PATH%\include
             echo %CUDA_PATH%\lib\x64
           ) >> %GITHUB_PATH%
-          echo ::debug::%GITHUB_PATH%
+          echo %GITHUB_PATH%
           echo CUDA installation and setup completed successfully.
       - name: Checkout
         uses: actions/checkout@v3 
