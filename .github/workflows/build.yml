@@ -103,14 +103,13 @@ jobs:
           call .\patch\patch_bash_scripts.bat
           xcopy settings\${{ matrix.build }}\* media-autobuild_suite\build\ /Y /I /S
           xcopy settings\common\* media-autobuild_suite\build\ /Y /I /S
-      - name: Cache
-        uses: actions/cache@main
-        with: 
-          path: media-autobuild_suite/msys64
-          key: msys-2-${{ hashFiles('./media-autobuild_suite/build/media-suite_compile.sh') }}
-          restore-keys: |
-             msys-2-${{ hashFiles('./media-autobuild_suite/build/media-suite_compile.sh') }}
-             msys-
+      - uses: msys2/setup-msys2@v2
+        id: msys2
+        with:
+          location: ./
+      - env:
+          MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
+        run: echo "$env:MSYS2_LOCATION"
       - name: Download artifact
         if: ${{ inputs.old-build-artifacts }}
         uses: dawidd6/action-download-artifact@v6
