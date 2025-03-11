@@ -40,6 +40,7 @@ jobs:
       - name: Install CUDA Toolkit and Set Paths
         shell: cmd
         run: |
+          @echo off
           setlocal enabledelayedexpansion
 
           echo Installing CUDA Toolkit...
@@ -59,7 +60,7 @@ jobs:
               set "latest=%%v"
               goto :found
           )
-          dir /b /ad "%CUDA_BASE%\v*" ^| echo
+          dir /b /ad "%CUDA_BASE%\v*"
           echo %latest%
           echo CUDA installation failed or CUDA directory not found.
           exit /b 1
@@ -85,7 +86,7 @@ jobs:
             echo %CUDA_PATH%\include
             echo %CUDA_PATH%\lib\x64
           ) >> %GITHUB_PATH%
-
+          echo ::debug::%GITHUB_PATH%
           echo CUDA installation and setup completed successfully.
       - name: Checkout
         uses: actions/checkout@v3 
