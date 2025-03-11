@@ -106,7 +106,7 @@ jobs:
       - uses: msys2/setup-msys2@v2
         id: msys2
         with:
-          location: ./
+          location: .\media-autobuild_suite
           update: true
       - env:
           MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
