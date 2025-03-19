@@ -5,3 +5,4 @@ sed -i "/^color$/d" media-autobuild_suite/media-autobuild_suite.bat
 
 rem for fix build
 sed -i 's!s:LIBPATH_lib(ass^|av(^|device^|filter))!s:LIBPATH_(lib)?(ffmpeg^|ass^|av^|archive^|bluray^|jpegxl(^|device^|filter))!g' media-autobuild_suite/build/media-suite_compile.sh
+unix2dos media-autobuild_suite/media-autobuild_suite.bat
