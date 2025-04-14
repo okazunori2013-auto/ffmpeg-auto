@@ -30,6 +30,8 @@ jobs:
         build: [minimum-build,minimum-build-static,full-build,full-build-static]
     runs-on: ${{ matrix.os }}
     steps:
+      - run: Set-MpPreference -DisableRealtimeMonitoring $true
+        shell: powershell
       - name: Preparation
         shell: cmd
         run: |
