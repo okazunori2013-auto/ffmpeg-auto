@@ -1,1 +1,0 @@
-../minimum-build/mpv_options.txt
