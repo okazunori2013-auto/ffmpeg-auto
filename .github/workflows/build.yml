@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, windows-2019]
+        os: [windows-2025, windows-2022]
         build: [minimum-build,full-build]
     runs-on: ${{ matrix.os }}
     steps:
@@ -38,7 +38,7 @@ jobs:
           echo "Adding GNU tar to PATH"
           echo C:\Program Files\Git\usr\bin>>"%GITHUB_PATH%"
       - name: cuda-toolkit
-        uses: Jimver/cuda-toolkit@master
+        uses: Jimver/cuda-toolkit@v0.2.25
       - name: Checkout
         uses: actions/checkout@v3 
         with:
