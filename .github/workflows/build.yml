@@ -1,5 +1,8 @@
 name: build
-
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+  
 on:
   pull_request:
   push:
@@ -92,5 +95,3 @@ jobs:
             ffmpeg.7z
             media-autobuild_suite/build/*_options.txt
             media-autobuild_suite/build/media-autobuild_suite.ini
-
-
