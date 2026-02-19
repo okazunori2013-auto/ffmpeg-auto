@@ -45,7 +45,7 @@ jobs:
         with:
           cuda: '12.9.1'
       - name: Checkout
-        uses: actions/checkout@v3 
+        uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Patch bash scripts
