@@ -21,8 +21,8 @@ jobs:
     if: github.event_name == 'schedule'
     uses:  ./.github/workflows/update submodules.yml
   build:
-    if: ${{always()}}
     needs: update-submodules
+    if: ${{ always() && !cancelled() }}
     strategy:
       fail-fast: false
       matrix:
@@ -92,4 +92,5 @@ jobs:
             ffmpeg.7z
             media-autobuild_suite/build/*_options.txt
             media-autobuild_suite/build/media-autobuild_suite.ini
+
 
