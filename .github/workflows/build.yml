@@ -38,7 +38,7 @@ jobs:
           echo "Adding GNU tar to PATH"
           echo C:\Program Files\Git\usr\bin>>"%GITHUB_PATH%"
       - name: cuda-toolkit
-        uses: Jimver/cuda-toolkit@v0
+        uses: Jimver/cuda-toolkit@master
         with:
           cuda: '12.9.1'
       - name: Checkout
@@ -92,3 +92,4 @@ jobs:
             ffmpeg.7z
             media-autobuild_suite/build/*_options.txt
             media-autobuild_suite/build/media-autobuild_suite.ini
+
