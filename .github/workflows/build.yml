@@ -45,7 +45,7 @@ jobs:
         with:
           cuda: '12.9.1'
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
       - name: Patch bash scripts
@@ -64,7 +64,7 @@ jobs:
              msys-
       - name: Download artifact
         if: ${{ inputs.old-build-artifacts }}
-        uses: dawidd6/action-download-artifact@v6
+        uses: dawidd6/action-download-artifact@v21
         with:
           workflow: build.yml
           name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
@@ -88,7 +88,7 @@ jobs:
           if exist ./media-autobuild_suite/build/logs.zip (7z.exe a -y -sdel ffmpeg.7z ./media-autobuild_suite/local64 ./media-autobuild_suite/build/logs.zip) else (7z.exe a -y -sdel ffmpeg.7z ./media-autobuild_suite/local64)
       - name: Upload artifacts
         if: ${{always()}}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: media-autobuild_suite-${{ matrix.os }}-${{ matrix.build }}
           path: |
