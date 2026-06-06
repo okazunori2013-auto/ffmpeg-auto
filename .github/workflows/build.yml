@@ -1,4 +1,8 @@
 name: build
+permissions:
+  contents: read
+  actions: read
+  packages: read
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
