@@ -4,7 +4,7 @@ permissions:
   actions: read
   packages: read
 concurrency:
-  group: build-${{ github.ref }}
+  group: build-${{ github.ref }}-${{ inputs.old-build-artifacts }}
   cancel-in-progress: true
   
 on:
