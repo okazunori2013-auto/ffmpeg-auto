@@ -4,7 +4,7 @@ permissions:
   actions: read
   packages: read
 concurrency:
-  group: build-${{ github.ref }}-${{ inputs.old-build-artifacts }}
+  group: build-${{ github.ref }}-${{ inputs.use-old-artifacts }}
   cancel-in-progress: true
   
 on:
@@ -16,7 +16,7 @@ on:
      - 'README.md'
   workflow_dispatch:
     inputs:
-      old-build-artifacts:
+      use-old-artifacts:
         description: 'Use old artifacts?'
         required: false
         default: false
