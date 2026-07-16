@@ -101,7 +101,6 @@
 --enable-ladspa
 --enable-vapoursynth
 --enable-liblensfun
---enable-libglslang
 --enable-vulkan
 --enable-libdavs2
 --enable-libxavs2
