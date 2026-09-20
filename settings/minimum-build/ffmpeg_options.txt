@@ -19,6 +19,7 @@
 --enable-ffnvcodec
 --enable-nvdec
 --enable-cuda-llvm
+--enable-mediafoundation
 --disable-decoder=aac
 --disable-decoder=aac_fixed
 --disable-decoder=aac_latm
@@ -27,6 +28,7 @@
 --enable-gmp
 --enable-libmp3lame
 --enable-libopus
+--disable-encoder=vorbis
 --enable-libvorbis
 --enable-libvpx
 --enable-libx264
@@ -77,6 +79,7 @@
 --enable-decklink
 --enable-frei0r
 --enable-libaribb24
+--enable-libaribcaption
 --enable-libbs2b
 --enable-libcaca
 --enable-libcdio
@@ -99,8 +102,8 @@
 --enable-openal
 --enable-libcodec2
 --enable-ladspa
-#--enable-vapoursynth
-#--enable-liblensfun
+--enable-vapoursynth
+--enable-liblensfun
 --enable-vulkan
 --enable-libdavs2
 --enable-libxavs2

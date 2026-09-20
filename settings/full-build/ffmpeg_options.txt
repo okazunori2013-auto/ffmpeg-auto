@@ -19,6 +19,7 @@
 --enable-ffnvcodec
 --enable-nvdec
 --enable-cuda-llvm
+--enable-mediafoundation
 --disable-decoder=aac
 --disable-decoder=aac_fixed
 --disable-decoder=aac_latm
@@ -27,6 +28,7 @@
 --enable-gmp
 --enable-libmp3lame
 --enable-libopus
+--disable-encoder=vorbis
 --enable-libvorbis
 --enable-libvpx
 --enable-libx264
